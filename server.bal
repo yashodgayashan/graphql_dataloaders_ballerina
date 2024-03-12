@@ -1,15 +1,8 @@
 import ballerina/graphql;
-import ballerina/http;
-import ballerina/graphql.dataloader;
 
 @graphql:ServiceConfig {
     graphiql: {
         enabled: true
-    },
-    contextInit: isolated function(http:RequestContext requestContext, http:Request request) returns graphql:Context {
-        graphql:Context context = new;
-        context.registerDataLoader(bookLoaderFunctionName, new dataloader:DefaultDataLoader(bookLoaderFunction));
-        return context;
     }
 }
 service /graphql on new graphql:Listener(9090) {
